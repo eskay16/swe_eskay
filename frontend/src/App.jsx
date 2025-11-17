@@ -6,10 +6,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { Login } from './pages/login.jsx';
-import { AddDetails } from './pages/add_details.jsx';
-import { AddFriend } from './pages/add_friend.jsx';
-import DisplayFriends from './pages/get_friend.jsx';
+import {
+  Login, AddDetails, AddFriend, DisplayFriends
+} from "./imports.jsx";
 
 
 function App() {
