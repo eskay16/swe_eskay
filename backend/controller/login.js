@@ -17,7 +17,7 @@ export const loginTheUser = (req, res) => {
       return res.json({ message: "Incorrect username or passowrd" });
     }
 
-    const token = jwt.sign({ userName: userName }, JWT_SECRET,)
+    const token = jwt.sign({ user_id: result.user_id }, JWT_SECRET,)
     return res.status(200).cookie(
       "bj",
       token,
@@ -25,6 +25,6 @@ export const loginTheUser = (req, res) => {
         http: true,
         maxAge: 1000 * 60 * 60
       }
-    ).json({ message: "Welcome :" + userName , success: true});
+    ).json({ message: "Welcome :" + userName, success: true });
   });
 };

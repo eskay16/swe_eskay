@@ -10,7 +10,6 @@ const app = express();
 dotenv.config()
 
 const portNum = process.env.PORT_NUMBER;
-
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors(corsOptions))

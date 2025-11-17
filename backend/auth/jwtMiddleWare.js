@@ -10,8 +10,7 @@ export const jwtMiddleware = (req, res, next) => {
     const decoded = jwt.verify(token, JWT_SECRET)
     console.log(decoded)
 
-    if ('userName' in decoded) {
-      console.log(decoded.userName);
+    if ('user_id' in decoded) {
       req.user = decoded;
       return next()
     }

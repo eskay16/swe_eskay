@@ -1,6 +1,5 @@
 import { insertDetails } from "../db.js";
 
-
 export function personalDetails(req, res) {
   insertDetails(req, (response) => {
     if (!response.status) {

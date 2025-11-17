@@ -8,7 +8,6 @@ import addNewFriend from '../controller/addFriend.js';
 import { getFriends } from '../controller/getFriends.js';
 
 const userRoutes = express.Router();
-
 userRoutes.post('/signup', validators(signUpValidators), Signup);
 userRoutes.post('/login', validators(signUpValidators), loginTheUser);
 

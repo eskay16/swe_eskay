@@ -66,6 +66,18 @@ export function loginUser(userName, callback) {
     return callback(null, row);
   });
 }
+function getUser(userName, callback) {
+  const getUser = `
+    SELECT * FROM user WHERE userName = ?
+`;
+  db.get(getUser, [userName], (err, row) => {
+    if (err) {
+      return callback("Login was unsuccessfull " + err.message);
+    }
+    return callback(null, row);
+  });
+}
+
 
 export function insertDetails(req, callback) {
   const userName = req.user.userName;
@@ -100,38 +112,25 @@ export function insertDetails(req, callback) {
 }
 
 export function addFriend(req, callback) {
-  const { userName } = req.user;
-  const {friendName, friendTag} = req.body;
+  const { user_id } = req.user;
+  const { friendName, friendTag } = req.body;
 
-  loginUser(userName, (err, result) => {
-    if (err) {
-      return callback({ message: "error: " + err.message }, null);
-    }
-    if (!result) {
-      return callback(new Error("User not found"), null); 
-    }
-    const user_id = result.user_id;
-      const addNewFriend = `
+  const addNewFriend = `
     INSERT INTO friends (user_id, friendName, friendTag)
     VALUES(?, ?, ?);
 `;
 
-        db.run(addNewFriend, [user_id, friendName, friendTag ], (err)=>{
-            if(err){
-              return callback(err, null);
-            }
-
-            return callback(null, {success: "friends added sucessfully"});
-
-        });
-    
+  db.run(addNewFriend, [user_id, friendName, friendTag], (err) => {
+    if (err) {
+      return callback({ message: `Login was unsuccessfull  + ${err.message}` }, null);
+    }
+    return callback(null, { success: "friends added sucessfully" });
   });
 }
 
-export function getUserFriends(req, callback){
-
-    const {userName} = req.user;
-    const retrieveFriends = `
+export function getUserFriends(req, callback) {
+  const { user_id } = req.user;
+  const retrieveFriends = `
     SELECT 
       friendName,
       friendTag
@@ -141,21 +140,14 @@ export function getUserFriends(req, callback){
     WHERE user.user_id =?;  
     `;
 
-loginUser(userName, (err, result) => {
+  db.all(retrieveFriends, [user_id], (err, row) => {
+
     if (err) {
       return callback(err, null);
-    } 
-    const user_id = result.user_id;
-     
-     db.all(retrieveFriends, [user_id], (err, row)=>{
+    }
 
-      if(err){
-        return callback(err, null);
-      }
-
-      return callback(null, row);
-    });
-    
+    return callback(null, row);
   });
-   
+
+
 }
