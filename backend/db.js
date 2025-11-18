@@ -80,7 +80,7 @@ function getUser(userName, callback) {
 
 
 export function insertDetails(req, callback) {
-  const userName = req.user.userName;
+  const user_id = req.user.user_id;
   const { firstName, lastName, age, email, gender } = req.body;
   const personalDetails = `
     UPDATE user
@@ -90,12 +90,12 @@ export function insertDetails(req, callback) {
         email = ?,
         gender = ?
     WHERE 
-        userName = ?;
+        user_id = ?;
     `;
 
   db.run(
     personalDetails,
-    [firstName, lastName, age, email, gender, userName],
+    [firstName, lastName, age, email, gender, user_id],
     (err) => {
       if (err) {
         return callback({

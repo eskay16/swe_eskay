@@ -1,11 +1,5 @@
 import express from 'express';
-import { detailsValidators, friendValidator, signUpValidators, validators } from '../validation/validator.js';
-import { Signup } from '../controller/signup.js';
-import { loginTheUser } from '../controller/login.js';
-import { personalDetails } from '../controller/PersonalDetails.js';
-import { jwtMiddleware } from '../auth/jwtMiddleWare.js';
-import addNewFriend from '../controller/addFriend.js';
-import { getFriends } from '../controller/getFriends.js';
+import {detailsValidators, friendValidator, signUpValidators, validators, Signup, loginTheUser, personalDetails, jwtMiddleware, addNewFriend, getFriends} from '../import.js'
 
 const userRoutes = express.Router();
 userRoutes.post('/signup', validators(signUpValidators), Signup);

@@ -22,7 +22,7 @@ export const loginTheUser = (req, res) => {
       "bj",
       token,
       {
-        http: true,
+        httpOnly: true,
         maxAge: 1000 * 60 * 60
       }
     ).json({ message: "Welcome :" + userName, success: true });
