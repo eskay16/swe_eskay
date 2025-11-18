@@ -6,12 +6,9 @@ export function AddFriend (){
     const [response, setResponse] = useState('');
 
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        addNewFriend(friendName, friendTag);
-    }
-
-    async function addNewFriend(friendName, friendTag) {
+        
         const res = await fetch('http://localhost:4000/user/add-friend', {
             method: "POST",
             headers: {
@@ -23,15 +20,20 @@ export function AddFriend (){
         });
 
         setResponse(await res.json());
-
-        
-    }  
+    }
+ 
+    const handlefriendName = (e)=>{
+        setFriendName(e.target.value);
+    }
+     const handlefriendTag = (e)=>{
+        setFriendTag(e.target.value);
+    }
 
     return(
         <>
             <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", rowGap: "10px"}}>
-                <input type="text" placeholder="friend Name" value={friendName} onChange={(e)=> setFriendName(e.target.value)}/>
-                <input type="text" placeholder="friend Tag" value={friendTag} onChange={(e) => setFriendTag(e.target.value)}/>
+                <input type="text" placeholder="friend Name" value={friendName} onChange={handlefriendName}/>
+                <input type="text" placeholder="friend Tag" value={friendTag} onChange={handlefriendTag}/>
                 <button type="submit"> Add Friend</button>
             </form>
 

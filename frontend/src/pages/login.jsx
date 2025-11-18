@@ -9,13 +9,10 @@ export function Login() {
   console.log(location.state.message)
 
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signUpToDb(userName, password);
+    
 
-  }
-
-  async function signUpToDb(userName, password) {
     const res = await fetch('http://localhost:4000/user/login', {
       method: "POST",
       headers: {
@@ -27,19 +24,27 @@ export function Login() {
     })
 
     const data = await res.json()
-    setResponse(data);
+    // setResponse(data);
 
     if (data.success) {
       navigate('/add_details');
     }
 
-  } return (
+  }
+
+  const handleUserName = (e)=>{
+    setUserName(e.target.value);
+  }
+  const handlePassword = (e)=>{
+    setPassword(e.target.value)
+  }
+   return (
     <>
       <h1>Log in</h1>
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", rowGap: "7px" }}>
-        <input type="text" placeholder="username" value={userName} onChange={(e) => setUserName(e.target.value)} />
+        <input type="text" placeholder="username" value={userName} onChange={handleUserName} />
 
-        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" placeholder="password" value={password} onChange={handlePassword} />
         <button href="/add_details" type="submit">Submit</button>
       </form>
 
