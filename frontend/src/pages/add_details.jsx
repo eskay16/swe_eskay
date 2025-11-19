@@ -10,7 +10,8 @@ export function AddDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:4000/user/add-details", {
+    try {
+      const res = await fetch("http://localhost:4000/user/add-details", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +22,11 @@ export function AddDetails() {
 
     const data = await res.json();
     setResponse(data);
+      
+    } catch (err) {
+      console.log("Submission failed: ",err.message);
+    }
+    
   };
 
   const handleFirstName = (e)=>{

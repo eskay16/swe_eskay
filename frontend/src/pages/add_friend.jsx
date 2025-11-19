@@ -9,7 +9,8 @@ export function AddFriend (){
     const handleSubmit = async (e)=>{
         e.preventDefault();
         
-        const res = await fetch('http://localhost:4000/user/add-friend', {
+        try {
+         const res = await fetch('http://localhost:4000/user/add-friend', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -19,7 +20,12 @@ export function AddFriend (){
 
         });
 
-        setResponse(await res.json());
+        setResponse(await res.json());    
+        } catch (err) {
+            console.log("Failed to add friend: ", err.message);
+            
+        }
+       
     }
  
     const handlefriendName = (e)=>{

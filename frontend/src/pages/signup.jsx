@@ -33,6 +33,7 @@ function Signup() {
       //show warning
       //redirect somewhere else 
       //inform that somethign went wrong try again later
+      console.log("Failed to signup: ", err.message);
     }
   }
 

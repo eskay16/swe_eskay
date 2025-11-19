@@ -12,8 +12,8 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-
-    const res = await fetch('http://localhost:4000/user/login', {
+    try {
+       const res = await fetch('http://localhost:4000/user/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -30,6 +30,11 @@ export function Login() {
       navigate('/add_details');
     }
 
+    } catch (err) {
+      console.log("Failed to login: ", err.message);
+    }
+
+   
   }
 
   const handleUserName = (e)=>{
