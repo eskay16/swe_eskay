@@ -11,39 +11,39 @@ export function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-       const res = await fetch('http://localhost:4000/user/login', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ userName, password }),
-      credentials: "include"
+      const res = await fetch('http://localhost:4000/user/login', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userName, password }),
+        credentials: "include"
 
-    })
+      })
 
-    const data = await res.json()
-    // setResponse(data);
+      const data = await res.json()
+      // setResponse(data);
 
-    if (data.success) {
-      navigate('/add_details');
-    }
+      if (data.success) {
+        navigate('/add_details');
+      }
 
     } catch (err) {
       console.log("Failed to login: ", err.message);
     }
 
-   
+
   }
 
-  const handleUserName = (e)=>{
+  const handleUserName = (e) => {
     setUserName(e.target.value);
   }
-  const handlePassword = (e)=>{
+  const handlePassword = (e) => {
     setPassword(e.target.value)
   }
-   return (
+  return (
     <>
       <h1>Log in</h1>
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", rowGap: "7px" }}>

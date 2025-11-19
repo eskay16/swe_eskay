@@ -1,5 +1,5 @@
 import express from 'express';
-import {detailsValidators, friendValidator, signUpValidators, validators, Signup, loginTheUser, personalDetails, jwtMiddleware, addNewFriend, getFriends} from '../import.js'
+import { addUser, detailsValidators, friendValidator, signUpValidators, validators, Signup, loginTheUser, personalDetails, jwtMiddleware, addNewFriend, getFriends, getUser, deleteUser } from '../import.js'
 
 const userRoutes = express.Router();
 userRoutes.post('/signup', validators(signUpValidators), Signup);
@@ -14,4 +14,9 @@ userRoutes.post('/add-details', jwtMiddleware, validators(detailsValidators), pe
 userRoutes.post('/add-friend', jwtMiddleware, validators(friendValidator), addNewFriend);
 
 userRoutes.get('/get-friend', jwtMiddleware, getFriends);
+
+
+userRoutes.post('/mongodb-add-friend', addUser)
+userRoutes.get('/mongodb-get-friend', getUser)
+userRoutes.post('/mongodb-delete-friend', deleteUser)
 export default userRoutes;
